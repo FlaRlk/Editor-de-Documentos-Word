@@ -1,0 +1,3 @@
+python-docx==0.8.11
+customtkinter==5.2.2
+pywin32==310 
