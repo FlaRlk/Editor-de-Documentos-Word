@@ -204,11 +204,24 @@ class ModernWordProcessor(ctk.CTk):
         
         
         try:
-            icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon.ico")
-            if os.path.exists(icon_path):
-                self.iconbitmap(icon_path)
-            else:
-                logging.warning("Arquivo de ícone não encontrado: %s", icon_path)
+            # Tenta encontrar o ícone em diferentes locais
+            icon_paths = [
+                os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon.ico"),
+                "icon.ico",
+                os.path.abspath("icon.ico"),
+                os.path.join(os.path.dirname(sys.executable), "icon.ico")
+            ]
+            
+            icon_loaded = False
+            for icon_path in icon_paths:
+                if os.path.exists(icon_path):
+                    self.iconbitmap(icon_path)
+                    logging.info(f"Ícone carregado com sucesso: {icon_path}")
+                    icon_loaded = True
+                    break
+                    
+            if not icon_loaded:
+                logging.warning("Arquivo de ícone não encontrado em nenhum dos caminhos tentados")
         except Exception as e:
             logging.error("Erro ao carregar o ícone: %s", str(e))
         

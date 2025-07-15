@@ -1,30 +1,29 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = None
+import os
+
+# Obter caminho absoluto para o ícone
+icon_path = os.path.abspath('icon.ico')
 
 a = Analysis(
     ['suspect.py'],
     pathex=[],
     binaries=[],
-    datas=[('icon.ico', '.')],
+    datas=[('icon.ico', '.')],  # Incluir o ícone como um recurso
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
     noarchive=False,
+    optimize=0,
 )
-
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
-    a.zipfiles,
     a.datas,
     [],
     name='suspect_word_edit',
@@ -40,5 +39,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icon.ico',
-) 
+    icon=icon_path,
+)

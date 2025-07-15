@@ -1,12 +1,12 @@
 @echo off
-echo Suspect Word Edit - Script de Compilação
+echo Suspect Word Edit - Script de Compilacao
 echo ==============================
 echo.
 
 REM Verifica se o Python ta instalado
 where python >nul 2>nul
 if %ERRORLEVEL% NEQ 0 (
-    echo Erro: Python nao encontrado bixo burro. instala o Python e tenta novamente.
+    echo Erro: Python nao encontrado. Instale o Python e tente novamente.
     pause
     exit /b 1
 )
@@ -22,22 +22,23 @@ if not exist icon.ico (
 
 REM Instala ou atualiza as dependencias
 echo Instalando as dependencias...
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 if %ERRORLEVEL% NEQ 0 (
     echo Erro ao instalar as dependencias.
     pause
     exit /b 1
 )
 
-REM Limpar diretórios de compilação anteriores
+REM Limpa compilacoes anteriores
 echo Limpando compilacoes anteriores...
 if exist build rmdir /s /q build
 if exist dist rmdir /s /q dist
 
-REM Compila
-echo Compilando o programa...
+REM Compila o suspect
+echo Compilando o suspect...
 echo Usando o icone: icon.ico
-pyinstaller suspect.spec
+python -m PyInstaller suspect.spec
 if %ERRORLEVEL% NEQ 0 (
     echo Erro durante a compilacao.
     pause
@@ -45,7 +46,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo Compilacao concluida com sucesso krl amem
-echo O executavel ta disponivel na pasta 'dist'
+echo Compilo kraiiiiiiiiiiiiiiiiiiiiiiiiii
+echo O executavel ta na pasta 'dist'
 echo.
 pause 
